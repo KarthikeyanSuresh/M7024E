@@ -18,7 +18,7 @@ def get_buckets_in_region(client, region):
             buckets.append(bucket['Name'])
     return buckets
 
-# Get the region from user input
+# Get the region from the user 
 print("Enter region to list the existing buckets in that region: ")
 region = input()
 
