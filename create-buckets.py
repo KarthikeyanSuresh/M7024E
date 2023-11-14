@@ -19,7 +19,6 @@ def create_multiple_buckets():
             
                 # Create the bucket with the specified region
                 else:
-                    
                     s3.create_bucket(Bucket=bucket_name, CreateBucketConfiguration={'LocationConstraint': bucket_region})
             print("Bucket created successfully")
 
