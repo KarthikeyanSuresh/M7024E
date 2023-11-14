@@ -15,7 +15,7 @@ class ListBuckets:
         buckets = []
         response = self.s3.list_buckets()
         for bucket in response['Buckets']:
-            location = self.get_location(self.s3, bucket['Name'])
+            location = self.get_location(bucket['Name'])
             if location == self.region:
                 buckets.append(bucket['Name'])
         return buckets
