@@ -3,6 +3,20 @@ import os
 import time
 
 class S3Operations:
+    """
+    This class handles operations related to AWS S3. It includes methods to upload, download, and delete objects in an S3 bucket.
+
+    Attributes:
+        region (str): The AWS region where the S3 bucket is located.
+        s3 (boto3.client): The boto3 S3 client.
+
+    Methods:
+        upload_s3_object(filePath, bucketName, objectKey): Uploads a file to an S3 bucket.
+        download_s3_object(bucketName, objectKey, objectName): Downloads a file from an S3 bucket.
+        delete_s3_object(bucket_name, file_name): Deletes a file from an S3 bucket.
+    """
+
+    # Initialize the S3 client
     def __init__(self, region):
         self.region = region
         self.s3 = boto3.client('s3', region_name=self.region)
