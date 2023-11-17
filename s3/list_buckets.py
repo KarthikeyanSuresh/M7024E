@@ -2,7 +2,7 @@ import boto3
 
 class ListBuckets:
     """
-    A class for interacting with Amazon S3 buckets in a specific region.
+    A class to list S3 buckets in a specific region.
 
     Attributes:
         - region (str): The AWS region in which the S3 operations are performed.
