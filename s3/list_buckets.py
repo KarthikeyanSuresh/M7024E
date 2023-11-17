@@ -1,6 +1,18 @@
 import boto3
 
 class ListBuckets:
+    """
+    A class for interacting with Amazon S3 buckets in a specific region.
+
+    Attributes:
+        - region (str): The AWS region in which the S3 operations are performed.
+        - s3 (boto3.client): The Boto3 S3 client for the specified region.
+
+    Methods:
+        - get_location(bucket_name): Returns the location of a given S3 bucket.
+        - get_buckets_in_region(): Retrieves a list of S3 buckets in the specified region.
+    
+    """
     def __init__(self, region):
         self.region = region
         self.s3 = boto3.client('s3', region_name=self.region)
