@@ -1,9 +1,9 @@
 import os
 from s3.operations import S3Operations
 
-filePath = '/Users/monicavasquez/Documents/LTU/Cloud Services/Lab2/Test'
-files = ['seal.jpg']
-buckets_regions = {'monvas-lab-1': 'eu-west-2'}
+filePath = os.getcwd() + '/Test'
+files = ['1','10','100','500']
+buckets_regions = {'monvas-lab-1': 'eu-west-2','mssm3': 'ap-south-1', "bri-l2-bucket-eu-north-1":'eu-north-1'}
 
 def latencyTest():
     # Upload objects to S3 bucket
