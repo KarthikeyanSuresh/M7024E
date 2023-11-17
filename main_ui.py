@@ -1,8 +1,6 @@
-import os
 from s3.operations import S3Operations
 from s3.list_buckets import ListBuckets
 from s3.create_buckets import CreateBuckets
-from s3.delete_object import DeleteS3Object
 import tkinter as tk
 from tkinter import messagebox
 import tkinter.simpledialog as sd 
