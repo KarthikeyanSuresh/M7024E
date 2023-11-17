@@ -2,6 +2,8 @@ import os
 from s3.operations import S3Operations
 from s3.list_buckets import ListBuckets
 from s3.create_buckets import CreateBuckets
+# import tkinter as tk
+# from tkinter import messagebox
 
 def run():
     print("The following actions are available: 1. Create S3 buckets, 2. List S3 buckets, 3. Operations in S3")
@@ -62,9 +64,9 @@ def operations_in_s3():
         s3_operations.download_s3_object(bucket_name, object_key, object_name) 
 
     # Delete objects from S3 bucket
+    # if operation == "3":
+    #     object_key = input("Enter the object key: ")
+    #     DeleteS3Object(bucket_name, object_key)
 
 if __name__ == '__main__':
     run()
-
-
-
