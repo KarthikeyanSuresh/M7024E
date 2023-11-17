@@ -8,7 +8,7 @@ class CreateBuckets:
         - bucket_name (str): The name of the S3 bucket to be created.
         - region (str): The AWS region in which the bucket should be created.
     
-        Methods:
+    Methods:
         - create_bucket(): Creates a new S3 bucket in the specified region.
         - Prints a message if the bucket already exists; otherwise, creates a new bucket.
         - Prints an error message if any exception occurs during the bucket creation.
