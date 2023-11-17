@@ -15,16 +15,16 @@ class S3App:
         master.title("S3 Operations")
 
         self.label = tk.Label(master, text="The following actions are available: 1. Create S3 buckets, 2. List S3 buckets, 3. Operations in S3. Choose an action:")
-        self.label.pack()
+        self.label.pack(pady=10, padx=50)
 
         self.create_button = tk.Button(master, text="Create S3 Buckets", command=self.create_buckets)
-        self.create_button.pack()
+        self.create_button.pack(padx=10, pady=10)
 
         self.list_button = tk.Button(master, text="List S3 Buckets", command=self.list_buckets)
-        self.list_button.pack()
+        self.list_button.pack(padx=10, pady=10)
 
         self.operations_button = tk.Button(master, text="Operations in S3", command=self.operations_in_s3)
-        self.operations_button.pack()
+        self.operations_button.pack(padx=10, pady=10)
 
     def create_buckets(self):
         num_buckets = int(sd.askstring("Input", "How many buckets do you want to create?"))
@@ -44,22 +44,27 @@ class S3App:
     def operations_in_s3(self):
         operation = sd.askstring("Input", "Enter the number of the operation you want to perform:\n1. Upload\n2. Download\n3. Delete")
         bucket_name = sd.askstring("Input", "Enter the bucket name:")
-        region_operation = sd.askstring("Input", "Enter the region:")
-        s3_operations = S3Operations(region_operation)
 
         if operation == "1":
             file_path = filedialog.askopenfilename(title="Select file to upload")
+            region_operation = sd.askstring("Input", "Enter the region:")
+            s3_operations = S3Operations(region_operation)
             object_key = sd.askstring("Input", "Enter the object key:")
             s3_operations.upload_s3_object(file_path, bucket_name, object_key)
 
         elif operation == "2":
             object_name = sd.askstring("Input", "Enter the name of the file to be downloaded:")
+            region_operation = sd.askstring("Input", "Enter the region:")
+            s3_operations = S3Operations(region_operation)
             object_key = sd.askstring("Input", "Enter the object key:")
             s3_operations.download_s3_object(bucket_name, object_key, object_name)
 
         elif operation == "3":
             object_key = sd.askstring("Input", "Enter the object key:")
-            DeleteS3Object(bucket_name, object_key)
+            s3_delete_object = DeleteS3Object(bucket_name, object_key)
+            s3_delete_object.delete_object(bucket_name, object_key)
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
