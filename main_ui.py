@@ -10,6 +10,22 @@ import tkinter.filedialog as filedialog
 
 
 class S3App:
+    """
+    This class represents a simple GUI application for performing operations on Amazon S3.
+    The operations include creating S3 buckets, listing S3 buckets, and performing operations within S3.
+
+    Attributes:
+        - master: The root or parent window where the buttons will be displayed.
+        - label: A label widget to display text on the window.
+        - create_button: A button that triggers the 'create_buckets' method when clicked.
+        - list_button: A button that triggers the 'list_buckets' method when clicked.
+        - operations_button: A button that triggers the 'operations_in_s3' method when clicked.
+
+    Methods:
+        - create_buckets(): Creates S3 buckets in the specified region.
+        - list_buckets(): Lists the existing S3 buckets in the specified region.
+        - operations_in_s3(): Performs operations in S3.
+    """
     def __init__(self, master):
         self.master = master
         master.title("S3 Operations")
