@@ -29,12 +29,12 @@ class S3Operations:
         except Exception as e:
             print(e)
 
-# download_s3_object('monvas-lab-1', 'seal.jpg', 'seal.jpg')
+    # Delete objects from S3 bucket
+    def delete_s3_object(self, bucket_name, file_name):
+        try:
+            self.s3.delete_object(Bucket=bucket_name, Key=file_name)
+            print("File deleted successfully")
+        except Exception as e:
+            print(f"File deletion failed: {str(e)}")
 
-# filePath = '/Users/monicavasquez/Documents/LTU/Cloud Services/Lab2/Test'
-# files = ['seal.jpg']
-
-# for file in files:
-#     local_file_path = os.path.join(filePath, file)
-#     upload_s3_object(local_file_path, 'monvas-lab-1', file)
 

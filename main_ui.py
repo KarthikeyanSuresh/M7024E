@@ -44,27 +44,24 @@ class S3App:
     def operations_in_s3(self):
         operation = sd.askstring("Input", "Enter the number of the operation you want to perform:\n1. Upload\n2. Download\n3. Delete")
         bucket_name = sd.askstring("Input", "Enter the bucket name:")
+        region_operation = sd.askstring("Input", "Enter the region:")
 
         if operation == "1":
             file_path = filedialog.askopenfilename(title="Select file to upload")
-            region_operation = sd.askstring("Input", "Enter the region:")
             s3_operations = S3Operations(region_operation)
             object_key = sd.askstring("Input", "Enter the object key:")
             s3_operations.upload_s3_object(file_path, bucket_name, object_key)
 
         elif operation == "2":
             object_name = sd.askstring("Input", "Enter the name of the file to be downloaded:")
-            region_operation = sd.askstring("Input", "Enter the region:")
             s3_operations = S3Operations(region_operation)
             object_key = sd.askstring("Input", "Enter the object key:")
             s3_operations.download_s3_object(bucket_name, object_key, object_name)
 
         elif operation == "3":
             object_key = sd.askstring("Input", "Enter the object key:")
-            s3_delete_object = DeleteS3Object(bucket_name, object_key)
-            s3_delete_object.delete_object(bucket_name, object_key)
-
-
+            s3_operations = S3Operations(region_operation)
+            s3_operations.delete_s3_object(bucket_name, object_key)
 
 if __name__ == "__main__":
     root = tk.Tk() 

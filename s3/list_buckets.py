@@ -19,13 +19,3 @@ class ListBuckets:
             if location == self.region:
                 buckets.append(bucket['Name'])
         return buckets
-
-# # Get the region from user input
-# print("Enter region to list the existing buckets in that region: ")
-## region = input()
-
-# # Output the bucket names in the specified region
-# print("The list of existing buckets in the " + region + " are:")
-# buckets = get_buckets_in_region(s3, region)
-# for bucket in buckets:
-#     print(bucket)
