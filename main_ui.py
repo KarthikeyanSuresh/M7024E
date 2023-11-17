@@ -14,16 +14,16 @@ class S3App:
         self.master = master
         master.title("S3 Operations")
 
-        self.label = tk.Label(master, text="The following actions are available: 1. Create S3 buckets, 2. List S3 buckets, 3. Operations in S3. Choose an action:")
+        self.label = tk.Label(master, text="The following actions are available: 1. Create S3 buckets, 2. List S3 buckets, 3. Operations in S3. Choose an action:", font=("Consolas", 12))
         self.label.pack(pady=10, padx=50)
 
-        self.create_button = tk.Button(master, text="Create S3 Buckets", command=self.create_buckets)
+        self.create_button = tk.Button(master, text="Create S3 Buckets", command=self.create_buckets, font=("Consolas", 12))
         self.create_button.pack(padx=10, pady=10)
 
-        self.list_button = tk.Button(master, text="List S3 Buckets", command=self.list_buckets)
+        self.list_button = tk.Button(master, text="List S3 Buckets", command=self.list_buckets, font=("Consolas", 12))
         self.list_button.pack(padx=10, pady=10)
 
-        self.operations_button = tk.Button(master, text="Operations in S3", command=self.operations_in_s3)
+        self.operations_button = tk.Button(master, text="Operations in S3", command=self.operations_in_s3, font=("Consolas", 12))
         self.operations_button.pack(padx=10, pady=10)
 
     def create_buckets(self):
@@ -67,6 +67,6 @@ class S3App:
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
+    root = tk.Tk() 
     app = S3App(root)
     root.mainloop()
