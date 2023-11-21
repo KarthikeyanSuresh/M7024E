@@ -1,21 +1,22 @@
-# LAB 2 Assignment
+# LAB 3 Assignment
 
 ## Exercise a) and b)
 
-The following instructions will execute the first 2 exercises of the Lab 2. 
+The following instructions will execute the exercises of Lab 3. The UI also integrates the methods from Lab 2 including S3 operations. 
 1. Execute UI:
 ```
-python main_ui.py
+python main.py
 ```
-2. Select operation you would like to perform
+2. Select AWS service (EC2 or S3) according to the operation you would like to perform
+3. For S3, the following operations are supported:
 - Create S3 bucket in different regions
 - List objects from an S3 bucket in different regions
 - Upload, Download and Delete objects from S3 buckets
+4. For EC2, the following operations are available:
+- Create EC2 instance
+- Stop EC2 instance
+- Retrieve staus of EC2 instance
+- Retrieve Cloudwatch metrics of EC2 instance.
 
-## Exercise c
- The last exercise of Lab2 can be found in uploadDownloadLatency.py. It will upload files from different sizes (1MB, 10MB, 100MB, 500MB) to S3 buckets in 3 different regions and the latency time will be displayed in terminal. The following steps will execute this exercise
 
- ```
- python uploadDownloadLatency.py
- ```
-
+![AWS Menu](ui/ui_screenshot.png "AWS Menu")
