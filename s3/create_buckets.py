@@ -10,8 +10,8 @@ class CreateBuckets:
     
     Methods:
         - create_bucket(): Creates a new S3 bucket in the specified region.
-        - Prints a message if the bucket already exists; otherwise, creates a new bucket.
-        - Prints an error message if any exception occurs during the bucket creation.
+            - Prints a message if the bucket already exists; otherwise, creates a new bucket.
+            - Prints an error message if any exception occurs during the bucket creation.
     """
     def __init__(self, bucketName, region):
         self.region = region
