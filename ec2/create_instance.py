@@ -32,11 +32,6 @@ class CreateEC2Instance:
 
 
 if __name__ == "__main__":
-    # ami_id = 'ami-0454207e5367abf01'
-    # instance_type = 't2.micro'
-    # storage_size = 8
-    # region = 'us-west-1'
-    # instance_name = 'test-instance-karsur-monvas'
 
     region = str(input("Enter a region: "))
     ami_id = str(input("Enter an AMI ID: "))
