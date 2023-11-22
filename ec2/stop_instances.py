@@ -2,7 +2,16 @@ import boto3
 from instance_status import InstanceStatus
 
 class StopInstances:
-    """fill in the docstring"""
+    """
+    This class is responsible for stopping EC2 instances using the AWS SDK boto3.
+    
+    Attributes:
+        - ec2: A boto3 client representing Amazon EC2.
+        - instance_id (str): The ID of the EC2 instance to be stopped.
+
+    Methods:
+        - stop_instance(instance_id): Stops the specified EC2 instance.
+    """
 
     def __init__(self):
         self.ec2 = boto3.client('ec2') 
@@ -17,7 +26,7 @@ class StopInstances:
 
 
 if __name__ == "__main__":
-    region = str(input("Enter only a region: "))
+    region = str(input("Enter a region: "))
     instance_status = InstanceStatus(region)
     print(instance_status.get_instance_status())
 
