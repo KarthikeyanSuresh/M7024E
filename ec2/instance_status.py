@@ -19,6 +19,6 @@ class InstanceStatus:
             print(f"Error getting instance status: {str(e)}") 
 
 
-
-instance_status = InstanceStatus("eu-north-1")
+region = str(input("Enter a region: "))
+instance_status = InstanceStatus(region)
 print(instance_status.get_instance_status())
