@@ -5,11 +5,11 @@ class InstanceStatus:
     This class is responsible for retrieving and printing the status of EC2 instances in a specified region using the AWS SDK boto3.
     
     Attributes:
-    ec2: A boto3 client representing Amazon EC2.
-    region: The AWS region in which to check the instance status.
+        - ec2: A boto3 client representing Amazon EC2.
+        - region: The AWS region in which to check the instance status.
 
     Methods:
-    get_instance_status(): Retrieves and prints the status of all EC2 instances in the specified region.
+        - get_instance_status(): Retrieves and prints the status of all EC2 instances in the specified region.
     """
 
     def __init__(self, region):
