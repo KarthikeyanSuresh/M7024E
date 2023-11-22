@@ -18,7 +18,7 @@ class InstanceStatus:
         except Exception as e:
             print(f"Error getting instance status: {str(e)}") 
 
-
-region = str(input("Enter a region: "))
-instance_status = InstanceStatus(region)
-print(instance_status.get_instance_status())
+if __name__ == "__main__":
+    region = str(input("Enter a region: "))
+    instance_status = InstanceStatus(region)
+    print(instance_status.get_instance_status())
