@@ -8,13 +8,14 @@ class StopInstances:
     Attributes:
         - ec2: A boto3 client representing Amazon EC2.
         - instance_id (str): The ID of the EC2 instance to be stopped.
+        - region (str): The AWS region in which the instance is located.
 
     Methods:
         - stop_instance(instance_id): Stops the specified EC2 instance.
     """
 
-    def __init__(self):
-        self.ec2 = boto3.client('ec2') 
+    def __init__(self, region):
+        self.ec2 = boto3.client('ec2', region_name=region)
 
     def stop_instance(self, instance_id):    
         try:
@@ -32,7 +33,7 @@ if __name__ == "__main__":
 
     num_instances = int(input("Enter the number of instances to stop: "))
     for i in range(num_instances):
-        inst = StopInstances()
+        inst = StopInstances(region)
         instance_id = str(input("Enter an Instance ID: "))
         try:
             inst.stop_instance(instance_id)
