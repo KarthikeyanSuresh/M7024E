@@ -20,10 +20,12 @@ class StopInstances:
     def stop_instance(self, instance_id):    
         try:
             response = self.ec2.stop_instances(InstanceIds=[instance_id])
-            print(f"Instance {instance_id} is stopping now.")
+            return response
+            # print(f"Instance {instance_id} is stopping now.")
             # print("Response:", response)
         except Exception as e:
-            print(f"Error stopping instance {instance_id}: {str(e)}") 
+            # print(f"Error stopping instance {instance_id}: {str(e)}") 
+            return e
 
 
 if __name__ == "__main__":

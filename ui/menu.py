@@ -69,6 +69,10 @@ class ModernUI:
         show_status_button = ttk.Button(self.root, text="Show Instance Status", command=self.show_ec2_status)
         show_status_button.pack(pady=10)
 
+        # Button to stop EC2 instance
+        stop_instance_button = ttk.Button(self.root, text="Stop Instance", command=self.stop_ec2_instance)
+        stop_instance_button.pack(pady=10)
+
         return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
         return_button.pack(pady=20)
     
@@ -203,6 +207,39 @@ class ModernUI:
 
         show_status_button = ttk.Button(self.root, text="Show Instance Status", command=show_status)
         show_status_button.pack(pady=20)
+
+
+    # def stop_ec2_instance(self):
+    #     self.clear_frame()
+    #     ttk.Label(self.root, text="Enter AWS Region:").pack(pady=5)
+    #     region_entry = ttk.Entry(self.root)
+    #     region_entry.pack(pady=5)
+    #     ttk.Label(self.root, text="Enter Instance ID:").pack(pady=5)
+    #     instance_id_entry = ttk.Entry(self.root)
+    #     instance_id_entry.pack(pady=5)
+    #     instance = StopInstances(region_entry.get())
+    #     result_message = instance.stop_instance(instance_id_entry.get())
+    #     messagebox.showinfo("Stop Instance", result_message)
+
+    def stop_ec2_instance(self):
+        self.clear_frame()
+        ttk.Label(self.root, text="Stopping EC2 instance...").pack(pady=20)
+        ttk.Label(self.root, text="Enter AWS Region:").pack(pady=5)
+        region_entry = ttk.Entry(self.root)
+        region_entry.pack(pady=5)
+        ttk.Label(self.root, text="Enter Instance ID:").pack(pady=5)
+        instance_id_entry = ttk.Entry(self.root)
+        instance_id_entry.pack(pady=5)
+
+        def stop_instance():
+            region = region_entry.get()
+            instance_id = instance_id_entry.get()
+            instance = StopInstances(region)
+            result_message = instance.stop_instance(instance_id)
+            messagebox.showinfo("Stop Instance", result_message)
+
+        stop_instance_button = ttk.Button(self.root, text="Stop Instance", command=stop_instance)
+        stop_instance_button.pack(pady=20)
 
 
     def create_buckets(self):
