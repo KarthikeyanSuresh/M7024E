@@ -1,5 +1,5 @@
 import boto3
-from instance_status import InstanceStatus
+from ec2.instance_status import InstanceStatus
 
 class StopInstances:
     """

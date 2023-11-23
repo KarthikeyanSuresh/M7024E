@@ -19,11 +19,13 @@ class InstanceStatus:
     def get_instance_status(self):
         try:
             response = self.ec2.describe_instances()
+            instance_status_list = []
             for reservation in response['Reservations']:
                 for instance in reservation['Instances']:
                     instance_id = instance['InstanceId']
                     instance_state = instance['State']['Name']
-                    print(f"Instance ID: {instance_id}, Status: {instance_state}")
+                    instance_status_list.append(f"Instance ID: {instance_id}, Instance State: {instance_state}")
+            return instance_status_list
         except Exception as e:
             print(f"Error getting instance status: {str(e)}") 
 

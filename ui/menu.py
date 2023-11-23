@@ -9,6 +9,11 @@ from cloudwatch.ec2metrics import CloudwatchMetrics
 from s3.operations import S3Operations
 from s3.list_buckets import ListBuckets
 from s3.create_buckets import CreateBuckets
+from ec2.instance_status import InstanceStatus
+from ec2.stop_instances import StopInstances
+from ec2.create_instance import CreateEC2Instance
+from tkinter import Listbox
+from pprint import pformat
 
 class ModernUI:
     def __init__(self, root):
@@ -16,6 +21,7 @@ class ModernUI:
         self.root.title("AWS Service Menu")
         self.root.geometry("600x400")
         self.create_main_menu()
+
 
     def create_main_menu(self):
         self.clear_frame()
@@ -127,16 +133,77 @@ class ModernUI:
             result_label.config(text=f"No data available for {metric_name}")
 
     def create_ec2_instance(self):
-        # Implement code to create EC2 instance here
+        self.clear_frame()
         ttk.Label(self.root, text="Creating EC2 instance...").pack(pady=20)
+
+        ttk.Label(self.root, text="Enter Instance Name:").pack(pady=5)
+        instance_name_entry = ttk.Entry(self.root)
+        instance_name_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter Instance Type:").pack(pady=5)
+        instance_type_entry = ttk.Entry(self.root)
+        instance_type_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter Image ID:").pack(pady=5)
+        image_id_entry = ttk.Entry(self.root)
+        image_id_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter Key Pair Name:").pack(pady=5)
+        key_pair_entry = ttk.Entry(self.root)
+        key_pair_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter Security Group ID:").pack(pady=5)
+        security_group_entry = ttk.Entry(self.root)
+        security_group_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter AWS Region:").pack(pady=5)
+        region_entry = ttk.Entry(self.root)
+        region_entry.pack(pady=5)
+
+        ttk.Label(self.root, text="Enter Instance Storage:").pack(pady=5)
+        instance_storage_entry = ttk.Entry(self.root)
+        instance_storage_entry.pack(pady=5)
+
+        result_label = ttk.Label(self.root, text="")
+        result_label.pack(pady=20)
+
+        create_instance_button = ttk.Button(self.root, text="Create Instance",
+                                            command=lambda: self.create_ec2_instance(
+                                                CreateEC2Instance(), instance_name_entry.get(), instance_type_entry.get(),
+                                                image_id_entry.get(), key_pair_entry.get(), security_group_entry.get(),
+                                                instance_storage_entry.get(), region_entry.get(), result_label))
+        create_instance_button.pack(pady=20)
+
 
     def list_ec2_instances(self):
         # Implement code to list EC2 instances here
         ttk.Label(self.root, text="Listing EC2 instances...").pack(pady=20)
 
+    def check_instance_status(self):
+        region = "us-east-1"  # You can modify this to get user input or set a default region
+        instance_status = InstanceStatus(region)
+        status_message = instance_status.get_instance_status()
+        self.label_result.config(text=status_message)
+        messagebox.showinfo("Instance Status", status_message)
+
+
     def show_ec2_status(self):
+        self.clear_frame()
         # Implement code to show EC2 instance status here
         ttk.Label(self.root, text="Showing EC2 instance status...").pack(pady=20)
+        ttk.Label(self.root, text="Enter AWS Region:").pack(pady=5)
+        region_entry = ttk.Entry(self.root)
+        region_entry.pack(pady=5)
+
+        def show_status():
+            region = region_entry.get()
+            inst = InstanceStatus(region)
+            status_message = inst.get_instance_status()
+            messagebox.showinfo("Instance Status", status_message)
+
+        show_status_button = ttk.Button(self.root, text="Show Instance Status", command=show_status)
+        show_status_button.pack(pady=20)
+
 
     def create_buckets(self):
         num_buckets = int(sd.askstring("Input", "How many buckets do you want to create?"))
