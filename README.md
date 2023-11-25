@@ -1,8 +1,6 @@
-# LAB 3 Assignment
+# LAB 2 and 3 Assignment
 
-## Exercise a) and b)
-
-The following instructions will execute the exercises of Lab 3. The UI also integrates the methods from Lab 2 including S3 operations. 
+The following instructions will execute the exercises of Lab 2 and 3. The UI also integrates the methods from Lab 2 including S3 operations. 
 1. Execute UI:
 ```
 python main.py
