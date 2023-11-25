@@ -1,8 +1,21 @@
 import boto3
-import boto3
-
 
 class CreateEC2Instance:
+    """
+    A class for creating EC2 instances using the AWS Boto3 library.
+
+    Attributes:
+    - ami_id (str): The ID of the Amazon Machine Image (AMI) for the EC2 instance.
+    - instance_type (str): The type of the EC2 instance (e.g., t2.micro).
+    - storage_size (int): The size of the EBS volume in gigabytes.
+    - region (str): The AWS region in which the instance will be launched.
+    - instance_name (str): The name tag for the EC2 instance.
+    - security_group (str): The ID of the security group for the EC2 instance.
+    - keypair (str): The name of the key pair used for the EC2 instance.
+
+    Methods:
+    - create_ec2_instance(): Creates an EC2 instance with the specified attributes and returns the instance ID.
+    """
     def __init__(self, ami_id, instance_type, storage_size, region, instance_name, security_group, keypair):
         self.ami_id = ami_id
         self.instance_type = instance_type
