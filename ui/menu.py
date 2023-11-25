@@ -16,10 +16,33 @@ from tkinter import Listbox
 from pprint import pformat
 
 class ModernUI:
+    """
+    The ModernUI class provides a graphical user interface for interacting with AWS services.
+
+    This class uses the tkinter library to create a GUI. It provides methods to interact with AWS EC2 and S3 services.
+
+    Attributes:
+        root (tkinter.Tk): The root window for the GUI.
+
+    Methods:
+        create_main_menu(): Creates the main menu of the GUI.
+        show_ec2_menu(): Shows the EC2 service menu.
+        show_s3_menu(): Shows the S3 service menu.
+        show_ec2_metrics_ui(): Shows the EC2 metrics UI.
+        fetch_metrics(metrics_fetcher, instance_id, metric_name, period, region, result_label): Fetches EC2 metrics.
+        create_ec2_instance(): Creates an EC2 instance.
+        check_instance_status(): Checks the status of an EC2 instance.
+        show_ec2_status(): Shows the status of an EC2 instance.
+        stop_ec2_instance(): Stops an EC2 instance.
+        create_buckets(): Creates S3 buckets.
+        list_buckets(): Lists S3 buckets.
+        operations_in_s3(): Performs operations in S3.
+        clear_frame(): Clears the frame of the GUI.
+    """
     def __init__(self, root):
         self.root = root
         self.root.title("AWS Service Menu")
-        self.root.geometry("600x400")
+        self.root.geometry("700x800")
         self.create_main_menu()
 
 
@@ -40,13 +63,13 @@ class ModernUI:
 
         # S3 button
         s3_button = ttk.Button(self.root, text="S3", command=self.show_s3_menu)
-        s3_button.pack(side="left", padx=20)
+        s3_button.pack(side="right", padx=20)
 
         # S3 image
         s3_image = ImageTk.PhotoImage(Image.open("ui/s3_icon.png").resize((100, 100)))
         s3_label = ttk.Label(self.root, image=s3_image, compound="top")
         s3_label.image = s3_image
-        s3_label.pack(side="left", padx=20)
+        s3_label.pack(side="right", padx=20)
 
     def show_ec2_menu(self):
         self.clear_frame()
@@ -60,10 +83,6 @@ class ModernUI:
         # Button to create instance
         create_instance_button = ttk.Button(self.root, text="Create Instance", command=self.create_ec2_instance)
         create_instance_button.pack(pady=10)
-
-        # Button to list instances
-        list_instances_button = ttk.Button(self.root, text="List Instances", command=self.list_ec2_instances)
-        list_instances_button.pack(pady=10)
 
         # Button to show status of EC2 instance
         show_status_button = ttk.Button(self.root, text="Show Instance Status", command=self.show_ec2_status)
@@ -93,9 +112,10 @@ class ModernUI:
         return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
         return_button.pack(pady=20)
 
-
     def show_ec2_metrics_ui(self):
         self.clear_frame()
+        ttk.Label(self.root, text="Available metrics are: CPUUtilization, DiskReadBytes, DiskWriteBytes, NetworkIn, NetworkOut").pack(pady=20)
+
         ttk.Label(self.root, text="Enter Instance ID:").pack(pady=5)
         instance_id_entry = ttk.Entry(self.root)
         instance_id_entry.pack(pady=5)
@@ -108,18 +128,22 @@ class ModernUI:
         region_entry = ttk.Entry(self.root)
         region_entry.pack(pady=5)
 
+        ttk.Label(self.root, text="Enter Period to query:").pack(pady=5)
+        period_entry = ttk.Entry(self.root)
+        period_entry.pack(pady=5)
+
         result_label = ttk.Label(self.root, text="")
         result_label.pack(pady=20)
 
         fetch_metrics_button = ttk.Button(self.root, text="Fetch Metrics",
                                           command=lambda: self.fetch_metrics(
                                               EC2Operations(), instance_id_entry.get(), metric_name_entry.get(),
-                                              region_entry.get(), result_label))
+                                              int(period_entry.get()), region_entry.get(), result_label))
         fetch_metrics_button.pack(pady=20)
         return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
         return_button.pack(pady=20)
 
-    def fetch_metrics(self, metrics_fetcher, instance_id, metric_name, region, result_label):
+    def fetch_metrics(self, metrics_fetcher, instance_id, metric_name, period,region, result_label):
         if region:
             self.region = region
 
@@ -128,8 +152,7 @@ class ModernUI:
             return
 
         ec2_metrics = CloudwatchMetrics(region=self.region)
-
-        data_points = metrics_fetcher.fetch_metrics(ec2_metrics, instance_id, metric_name)
+        data_points = metrics_fetcher.fetch_metrics(ec2_metrics, instance_id, metric_name, period)
 
         if data_points:
             result_label.config(text=f"{metric_name} Data Points: {data_points}")
@@ -177,11 +200,8 @@ class ModernUI:
                                                 image_id_entry.get(), key_pair_entry.get(), security_group_entry.get(),
                                                 instance_storage_entry.get(), region_entry.get(), result_label))
         create_instance_button.pack(pady=20)
-
-
-    def list_ec2_instances(self):
-        # Implement code to list EC2 instances here
-        ttk.Label(self.root, text="Listing EC2 instances...").pack(pady=20)
+        return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
+        return_button.pack(pady=20)
 
     def check_instance_status(self):
         region = "us-east-1"  # You can modify this to get user input or set a default region
@@ -189,7 +209,6 @@ class ModernUI:
         status_message = instance_status.get_instance_status()
         self.label_result.config(text=status_message)
         messagebox.showinfo("Instance Status", status_message)
-
 
     def show_ec2_status(self):
         self.clear_frame()
@@ -208,18 +227,8 @@ class ModernUI:
         show_status_button = ttk.Button(self.root, text="Show Instance Status", command=show_status)
         show_status_button.pack(pady=20)
 
-
-    # def stop_ec2_instance(self):
-    #     self.clear_frame()
-    #     ttk.Label(self.root, text="Enter AWS Region:").pack(pady=5)
-    #     region_entry = ttk.Entry(self.root)
-    #     region_entry.pack(pady=5)
-    #     ttk.Label(self.root, text="Enter Instance ID:").pack(pady=5)
-    #     instance_id_entry = ttk.Entry(self.root)
-    #     instance_id_entry.pack(pady=5)
-    #     instance = StopInstances(region_entry.get())
-    #     result_message = instance.stop_instance(instance_id_entry.get())
-    #     messagebox.showinfo("Stop Instance", result_message)
+        return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
+        return_button.pack(pady=20)
 
     def stop_ec2_instance(self):
         self.clear_frame()
@@ -241,6 +250,8 @@ class ModernUI:
         stop_instance_button = ttk.Button(self.root, text="Stop Instance", command=stop_instance)
         stop_instance_button.pack(pady=20)
 
+        return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
+        return_button.pack(pady=20)
 
     def create_buckets(self):
         num_buckets = int(sd.askstring("Input", "How many buckets do you want to create?"))
