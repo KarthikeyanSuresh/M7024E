@@ -194,12 +194,21 @@ class ModernUI:
         result_label = ttk.Label(self.root, text="")
         result_label.pack(pady=20)
 
-        create_instance_button = ttk.Button(self.root, text="Create Instance",
-                                            command=lambda: self.create_ec2_instance(
-                                                CreateEC2Instance(), instance_name_entry.get(), instance_type_entry.get(),
-                                                image_id_entry.get(), key_pair_entry.get(), security_group_entry.get(),
-                                                instance_storage_entry.get(), region_entry.get(), result_label))
-        create_instance_button.pack(pady=20)
+        def create_inst():
+            instance_name = instance_name_entry.get()
+            instance_type = instance_type_entry.get()
+            image_id = image_id_entry.get()
+            key_pair = key_pair_entry.get()
+            security_group = security_group_entry.get()
+            region = region_entry.get()
+            instance_storage = instance_storage_entry.get()
+            instance = CreateEC2Instance(ami_id=image_id, instance_type=instance_type, storage_size=instance_storage, region=region, instance_name=instance_name, security_group=security_group, keypair=key_pair)
+            result_message = instance.create_ec2_instance()
+            messagebox.showinfo("Create Instance", result_message)  
+
+        create_instance_button = ttk.Button(self.root, text="Create Instance", command=create_inst)
+        create_instance_button.pack(pady=20)  
+
         return_button = ttk.Button(self.root, text="Return to Main Menu", command=self.create_main_menu)
         return_button.pack(pady=20)
 

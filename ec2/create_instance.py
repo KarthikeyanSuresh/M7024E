@@ -1,5 +1,6 @@
 import boto3
 
+
 class CreateEC2Instance:
     """
     A class for creating EC2 instances using the AWS Boto3 library.
@@ -19,7 +20,7 @@ class CreateEC2Instance:
     def __init__(self, ami_id, instance_type, storage_size, region, instance_name, security_group, keypair):
         self.ami_id = ami_id
         self.instance_type = instance_type
-        self.storage_size = storage_size
+        self.storage_size = int(storage_size)
         self.region = region
         self.instance_name = instance_name
         self.security_group = security_group
